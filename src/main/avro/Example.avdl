@@ -1,0 +1,10 @@
+@namespace("uk.co.datareply.schemas.avro")
+protocol ExampleProtocol {
+    record Example {
+        string  id = "";
+        string  name = "";
+        string  surname = "";
+        int     salary = 0;
+        int     taxPercentage = 0;
+    }
+}

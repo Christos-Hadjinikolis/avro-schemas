@@ -1,0 +1,84 @@
+defaultTasks 'clean', 'build'
+
+buildscript {
+    repositories {
+        maven {
+            name "Gradle M2 Plugin"
+            url "https://plugins.gradle.org/m2/"
+        }
+        jcenter()
+    }
+
+    dependencies {
+        classpath "com.github.jengelman.gradle.plugins:shadow:2.0.4"
+        classpath "com.commercehub.gradle.plugin:gradle-avro-plugin:0.10.0"
+    }
+}
+
+apply plugin: "java"
+apply plugin: "com.github.johnrengelman.shadow"
+apply plugin: "com.commercehub.gradle.plugin.avro"
+apply from: "$rootDir/gradle/libraries.gradle"
+apply from: "$rootDir/gradle/repositories.gradle"
+
+group 'uk.co.datareply.avro'
+version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
+
+dependencies {
+    compile libs.avro,
+            libs.jodaTime
+}
+
+avro {
+    stringType = "String"
+}
+
+jar {
+    doFirst {
+        configure {
+            def git = gitDetails()
+            manifest {
+                attributes(
+                        "Implementation Title":     "DRUK Canonical Schemas",
+                        "Implemenetation Version":  "$rootProject.version",
+                        "Git-Revision-Hash":        git.longHash)
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    classifier = "sources"
+    from sourceSets.main.allSource
+    from "$projectDir/src/main/avro"
+    from "$buildDir/generated-main-avro-java"
+
+}
+
+// TODO: Define once Artifact repo is setup
+//publishing {
+//
+//    repositories {
+//        // e.g.
+//        maven {
+//            name    "Deploy"
+//            url     "..."
+//            credentials {
+//                username = "user"
+//                password = "password"
+//            }
+//        }
+//
+//    }
+//    publications {
+//
+//        mavenJava(MavenPublication) {
+//            from        components.java
+//            artifact    sourcesJar {
+//                classifier "sources"
+//            }
+//        }
+//
+//    }
+//}
