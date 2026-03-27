@@ -1,0 +1,59 @@
+name: Schema change request
+description: Propose a new schema or a change to an existing schema.
+title: "[Schema] "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for new schemas, additive changes, or intentional breaking changes.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Requested change
+      description: What schema change is needed?
+      placeholder: Add a new optional field to...
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: Why is this change needed?
+      placeholder: This enables...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: compatibility
+    attributes:
+      label: Compatibility impact
+      options:
+        - Backward compatible
+        - Potentially breaking
+        - Unsure
+    validations:
+      required: true
+
+  - type: textarea
+    id: consumers
+    attributes:
+      label: Downstream consumers
+      description: Which services, teams, or systems consume this schema?
+      placeholder: Service A, analytics pipeline B, partner C...
+
+  - type: textarea
+    id: proposed_shape
+    attributes:
+      label: Proposed schema shape
+      description: Include sample Avro IDL if helpful.
+      render: avdl
+
+  - type: textarea
+    id: rollout
+    attributes:
+      label: Rollout notes
+      description: Include migration or coordination notes if relevant.
