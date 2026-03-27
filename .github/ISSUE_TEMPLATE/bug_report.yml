@@ -1,0 +1,65 @@
+name: Bug report
+description: Report a problem with schema validation, generation, or repository tooling.
+title: "[Bug] "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting an issue. Please include enough detail to reproduce the problem.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What happened?
+      placeholder: The build fails when...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Include commands, file changes, and anything needed to reproduce the problem.
+      placeholder: |
+        1. Edit src/main/avro/...
+        2. Run ./gradlew clean check
+        3. Observe the failure
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      placeholder: The schema should validate and generated Java should be produced.
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      placeholder: Paste the error message or describe the incorrect behavior.
+    validations:
+      required: true
+
+  - type: input
+    id: java_version
+    attributes:
+      label: Java version
+      placeholder: e.g. 11.0.30
+
+  - type: input
+    id: gradle_command
+    attributes:
+      label: Gradle command used
+      placeholder: e.g. ./gradlew clean check
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional context
+      description: Add anything else that would help diagnose the issue.
